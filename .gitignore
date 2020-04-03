@@ -1,2 +1,5 @@
 *.pyc
 suspicious_domains.log
+external.yaml
+external_covid.yaml
+*.log

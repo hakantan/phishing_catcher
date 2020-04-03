@@ -29,7 +29,7 @@ log_suspicious = os.path.dirname(os.path.realpath(__file__))+'/suspicious_domain
 
 suspicious_yaml = os.path.dirname(os.path.realpath(__file__))+'/suspicious.yaml'
 
-external_yaml = os.path.dirname(os.path.realpath(__file__))+'/external.yaml'
+external_yaml = os.path.dirname(os.path.realpath(__file__))+'/external_covid.yaml'
 
 pbar = tqdm.tqdm(desc='certificate_update', unit='cert')
 
@@ -66,8 +66,9 @@ def score_domain(domain):
     except Exception:
         pass
 
-    # Higer entropy is kind of suspicious
-    score += int(round(entropy(domain)*10))
+    # # Higher entropy is kind of suspicious
+    # we don't need this for our purposes
+    # score += int(round(entropy(domain)*10))
 
     # Remove lookalike characters using list from http://www.unicode.org/reports/tr39
     domain = unconfuse(domain)
@@ -134,7 +135,7 @@ def callback(message, context):
                     "[+] Potential : "
                     "{} (score={})".format(colored(domain, attrs=['underline']), score))
 
-            if score >= 75:
+            if score >= 65:
                 with open(log_suspicious, 'a') as f:
                     f.write("{}\n".format(domain))
 
